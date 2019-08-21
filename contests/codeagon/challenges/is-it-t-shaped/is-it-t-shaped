@@ -1,0 +1,123 @@
+"""
+In the kids version of the game Twister, a player has to form close T-shapes with his moves. After 5 moves, if a T-shape is formed, the player wins. Given 5 two-dimentional coordinate points, can you tell whether they are closely T-shaped or not? Print YES if a T-shape can be formed, and NO if not.
+
+There are 4 possible types of T-shaped formations:
+
+image
+
+Input Format
+
+The first line contains the number of test cases T. Each test cases has five lines containing two non-negative integers x and y separated by a single space. Points in the same test case are all distinct.
+
+Constraints
+
+1 ≤ T ≤ 500
+0 ≤ x ≤ 106
+0 ≤ y ≤ 106
+Output Format
+
+For each test-case, output Yes if they form T-shaped or No if they don't form T-shaped in a new line.
+
+Sample Input 0
+
+1
+7 5
+8 5
+6 5
+7 6
+7 7
+Sample Output 0
+
+Yes
+Explanation 0
+
+The given coordinate points form a close T-shape, hence the output is YES.
+
+Sample Input 1
+
+3
+0 1
+1 1
+2 1
+2 2
+2 0
+0 2
+1 2
+3 2
+1 1
+1 0
+0 2
+0 1
+0 0
+1 1
+2 2
+Sample Output 1
+
+Yes
+No
+No
+
+"""
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+input_case=input()
+x_y=[]
+x=[]
+y=[]
+same_x=[]
+same_y=[]
+same_x_y=0
+same_x_y_org=0
+not_same_y=[]
+not_same_x=[]
+for i in range(int(input_case)*5):
+    x_y.append(input())
+    if len(x_y)==5:
+        for j in range(len(x_y)):
+            x.append(int((x_y[j]).split()[0]))
+            y.append(int((x_y[j]).split()[1]))
+        for i_xy in range(len(x)):
+            if x[i_xy]==y[i_xy]:
+                same_x_y_org=1
+        for i_x_y in range(len(x)):
+            for j in range(i_x_y):
+                if x[i_x_y]==x[j]:
+                    same_x.append(x[i_x_y])
+                if y[i_x_y]==y[j]:
+                    same_y.append(y[i_x_y])
+        for i_x in range(len(x)):
+            if len(same_x)>=1:
+                if same_x[0] !=x[i_x]:
+                    not_same_x.append(x[i_x])
+            if len(same_y)>=1:
+                if same_y[0] !=y[i_x]:
+                    not_same_y.append(y[i_x])
+        # print(same_x)
+        # print(same_y)
+        # print(same_x_y)
+        # print((not_same_x))
+        # print((not_same_y))
+        len_result=len(same_x)==len(same_y)==3
+        if len_result:
+            same_x_y=int(str(not_same_x[0]-not_same_x[1]).replace("-",""))-int(str(not_same_y[0]-not_same_y[1]).replace("-",""))
+            # print(not_same_x[0]-not_same_x[1])
+            # print(not_same_y[0]-not_same_y[1])
+            # print(same_x_y)
+        if same_x_y==1 or same_x_y==-1:
+            print("Yes")
+        else:
+            print("No")
+        x_y=[]
+        x,y=[],[]
+        same_x=[]
+        same_y=[]
+        same_x_y=0
+        not_same_y=[]
+        not_same_x=[]
+#print(int(str(not_same_y[0]-not_same_y[1])).replace("-",""))
